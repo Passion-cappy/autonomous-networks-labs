@@ -1,0 +1,226 @@
+{
+  "schema": 1,
+  "basis": "Прямий запит 31.10.2026: усі роботи автоматично; ПР3–6 по 10, ПР7 12, без усної здачі.",
+  "status": "implemented-local-self-check-and-trusted-wrapper; hosted-CI-not-yet-executed",
+  "stages": {
+    "pr03": {
+      "max_points": 10,
+      "mode": "automatic",
+      "oral_defense_required": false,
+      "automatic_points": 10,
+      "oral_points": 0,
+      "criteria": [
+        {
+          "id": "A01",
+          "description": "Валідний Compose і визначена побудова власного toolbox",
+          "points": 2,
+          "checks": [
+            "CONFIG",
+            "SAFETY",
+            "IMAGES"
+          ]
+        },
+        {
+          "id": "A02",
+          "description": "Образ побудовано, потрібні інструменти працюють",
+          "points": 3,
+          "checks": [
+            "TOOLS"
+          ]
+        },
+        {
+          "id": "A03",
+          "description": "Файл зберігається через bind mount після перестворення контейнера",
+          "points": 3,
+          "checks": [
+            "PERSIST"
+          ]
+        },
+        {
+          "id": "A04",
+          "description": "Повторний запуск і повтор автоперевірки успішні",
+          "points": 2,
+          "checks": [
+            "RESTART"
+          ]
+        }
+      ]
+    },
+    "pr04": {
+      "max_points": 10,
+      "mode": "automatic",
+      "oral_defense_required": false,
+      "automatic_points": 10,
+      "oral_points": 0,
+      "criteria": [
+        {
+          "id": "A01",
+          "description": "Працівник отримує відповідь публічного сервісу",
+          "points": 2,
+          "checks": [
+            "EMP_PUBLIC"
+          ]
+        },
+        {
+          "id": "A02",
+          "description": "Працівник має доступ до admin",
+          "points": 2,
+          "checks": [
+            "EMP_ADMIN"
+          ]
+        },
+        {
+          "id": "A03",
+          "description": "Гість має доступ до публічного сервісу",
+          "points": 2,
+          "checks": [
+            "GUEST_PUBLIC"
+          ]
+        },
+        {
+          "id": "A04",
+          "description": "Гість не має доступу до admin за фактичними IP",
+          "points": 2,
+          "checks": [
+            "GUEST_DENIED"
+          ]
+        },
+        {
+          "id": "A05",
+          "description": "Тест відхиляє доданий guest-інтерфейс і приймає виправлення",
+          "points": 2,
+          "checks": [
+            "LEAK_CONTROL"
+          ]
+        }
+      ]
+    },
+    "pr05": {
+      "max_points": 10,
+      "mode": "automatic",
+      "oral_defense_required": false,
+      "automatic_points": 10,
+      "oral_points": 0,
+      "criteria": [
+        {
+          "id": "A01",
+          "description": "Prometheus збирає результати Blackbox",
+          "points": 2,
+          "checks": [
+            "METRICS"
+          ]
+        },
+        {
+          "id": "A02",
+          "description": "Обидві штатні HTTP-цілі мають успішну пробу",
+          "points": 2,
+          "checks": [
+            "METRICS"
+          ]
+        },
+        {
+          "id": "A03",
+          "description": "Хибний порт дає probe_success=0 при up=1",
+          "points": 3,
+          "checks": [
+            "WRONG_PORT"
+          ]
+        },
+        {
+          "id": "A04",
+          "description": "Після виправлення штатна проба знову успішна",
+          "points": 3,
+          "checks": [
+            "METRICS_RESTORED"
+          ]
+        }
+      ]
+    },
+    "pr06": {
+      "max_points": 10,
+      "mode": "automatic",
+      "oral_defense_required": false,
+      "automatic_points": 10,
+      "oral_points": 0,
+      "criteria": [
+        {
+          "id": "A01",
+          "description": "До відмови штатні проби успішні",
+          "points": 2,
+          "checks": [
+            "METRICS"
+          ]
+        },
+        {
+          "id": "A02",
+          "description": "Під час відмови gateway відповідає через backend-b",
+          "points": 3,
+          "checks": [
+            "FAILOVER"
+          ]
+        },
+        {
+          "id": "A03",
+          "description": "Отримано свіже firing сповіщення",
+          "points": 3,
+          "checks": [
+            "FIRING"
+          ]
+        },
+        {
+          "id": "A04",
+          "description": "Після повернення primary отримано свіже resolved",
+          "points": 2,
+          "checks": [
+            "RESOLVED",
+            "PRIMARY_RETURN"
+          ]
+        }
+      ]
+    },
+    "pr07": {
+      "max_points": 12,
+      "mode": "automatic",
+      "oral_defense_required": false,
+      "automatic_points": 12,
+      "oral_points": 0,
+      "criteria": [
+        {
+          "id": "A01",
+          "description": "Grafana показує живі метрики на двох панелях",
+          "points": 3,
+          "checks": [
+            "GRAFANA"
+          ]
+        },
+        {
+          "id": "A02",
+          "description": "Офіційний Ollama виконав реальний локальний inference",
+          "points": 3,
+          "checks": [
+            "AI_NORMAL"
+          ]
+        },
+        {
+          "id": "A03",
+          "description": "Знімки інциденту, валідний JSON та наявні E-ID; хибні форми відхиляються",
+          "points": 3,
+          "checks": [
+            "AI_INCIDENT",
+            "AI_LIMITED",
+            "AI_CONTRACT"
+          ]
+        },
+        {
+          "id": "A04",
+          "description": "Сповіщення, резерв та відновлення працюють без LLM",
+          "points": 3,
+          "checks": [
+            "AI_OFF",
+            "ALARM_WITHOUT_AI"
+          ]
+        }
+      ]
+    }
+  }
+}

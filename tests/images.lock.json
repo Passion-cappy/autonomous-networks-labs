@@ -1,0 +1,209 @@
+{
+  "schema": 3,
+  "checked_at": "2026-10-31",
+  "review_interval_days": 30,
+  "registry": "Docker Hub",
+  "images": {
+    "BASE_IMAGE": {
+      "hub_repository": "library/python",
+      "repository": "python",
+      "tag": "3.15.2-alpine",
+      "digest": "sha256:20a82dbc2783112ddb91d1534603f802d222a3e63e593cd002eb2ac534e70211",
+      "reference": "python:3.15.2-alpine",
+      "last_updated": "2026-10-29T17:08:54.874095Z",
+      "tracking": "3.15-alpine",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:cfb80265c43979455f899ae3fce69b83d51758684b6bc24798ec9b60c67d81d2",
+          "compressed_bytes": 19670132,
+          "last_pushed": "2026-10-26T23:06:43.807868495Z"
+        },
+        "arm64": {
+          "digest": "sha256:37a90eb2e2b1c92cfd2e25a43a3e06a2861dfab889ff53288b260f07db69fa07",
+          "compressed_bytes": 20021415,
+          "last_pushed": "2026-10-26T23:06:45.262623724Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/library/python/tags/3.15.2-alpine"
+    },
+    "HAPROXY_IMAGE": {
+      "hub_repository": "library/haproxy",
+      "repository": "haproxy",
+      "tag": "3.4.7-alpine",
+      "digest": "sha256:2caaf8b1a1ef67f3f1ea9b721f2821675d3ba4500fb518e23884fecb93e8dbaa",
+      "reference": "haproxy:3.4.7-alpine",
+      "last_updated": "2026-10-24T17:56:56.950861Z",
+      "tracking": "3.4-alpine",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:891ff5605861609a37f95f6c28f67bc0cb3d87f2e282d7b008ac7fbc5297bc86",
+          "compressed_bytes": 20505735,
+          "last_pushed": "2026-10-21T23:56:54.438507047Z"
+        },
+        "arm64": {
+          "digest": "sha256:eb1ee22f6d77d31700bf3b4989e0bb3b1e0a1ef864102529554838aa9c0a7aa0",
+          "compressed_bytes": 20605897,
+          "last_pushed": "2026-10-22T02:57:52.61125224Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/library/haproxy/tags/3.4.7-alpine"
+    },
+    "PROMETHEUS_IMAGE": {
+      "hub_repository": "prom/prometheus",
+      "repository": "prom/prometheus",
+      "tag": "v3.13.5",
+      "digest": "sha256:aafa9d694e6a883c02db516d9f6e5b84e14195f49a2a6456a4cca815edda72b9",
+      "reference": "prom/prometheus:v3.13.5",
+      "last_updated": "2026-10-21T11:08:04.831375Z",
+      "tracking": "prefix:v3.13.",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:dc30314819e04a1a3d18d0b37eaa9c8e4e18f33f026e3e2d81bf127c7cddcd55",
+          "compressed_bytes": 106844245,
+          "last_pushed": "2026-10-21T11:07:12.885958442Z"
+        },
+        "arm64": {
+          "digest": "sha256:1ced961cbefad14f6c04f564ebf3902b7ba963cf1604cb1666bacdcd540e78bc",
+          "compressed_bytes": 98300066,
+          "last_pushed": "2026-10-21T11:07:13.553469742Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/prom/prometheus/tags/v3.13.5"
+    },
+    "BLACKBOX_IMAGE": {
+      "hub_repository": "prom/blackbox-exporter",
+      "repository": "prom/blackbox-exporter",
+      "tag": "v0.29.1",
+      "digest": "sha256:ea1c7aa3ef3f307cd03e85f34abb604478ccb90b567fc690da0cd9776da76b13",
+      "reference": "prom/blackbox-exporter:v0.29.1",
+      "last_updated": "2026-10-21T18:13:32.74315Z",
+      "tracking": "latest",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:66eae352a79e6f677aeddd8c25a9bdb017586dc5fbd230f22329213d891f94bd",
+          "compressed_bytes": 18978684,
+          "last_pushed": "2026-10-21T18:13:16.236086838Z"
+        },
+        "arm64": {
+          "digest": "sha256:bcc3bd71004dcca622fcff5330b36b6c126fc0779145e92b3209c84ce8939a57",
+          "compressed_bytes": 17601383,
+          "last_pushed": "2026-10-21T18:13:16.678926996Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/prom/blackbox-exporter/tags/v0.29.1"
+    },
+    "ALERTMANAGER_IMAGE": {
+      "hub_repository": "prom/alertmanager",
+      "repository": "prom/alertmanager",
+      "tag": "v0.34.2",
+      "digest": "sha256:39d8bb3966c694a124428a3a88fbcffd40bd069129ecd47c059f8a3f17c55f3b",
+      "reference": "prom/alertmanager:v0.34.2",
+      "last_updated": "2026-10-29T12:19:22.410125Z",
+      "tracking": "latest",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:7619e9399e623c9f99a40cb199c2bceb972cbf725598a51dcbde69d51dcaaedf",
+          "compressed_bytes": 40818338,
+          "last_pushed": "2026-10-29T12:19:20.672286465Z"
+        },
+        "arm64": {
+          "digest": "sha256:6d6e6783829a3bce34d010e71e752426bc9cf345726a7c48fa00dfb5e3292a68",
+          "compressed_bytes": 37854319,
+          "last_pushed": "2026-10-29T12:19:18.039492475Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/prom/alertmanager/tags/v0.34.2"
+    },
+    "GRAFANA_IMAGE": {
+      "hub_repository": "grafana/grafana",
+      "repository": "grafana/grafana",
+      "tag": "13.3.0",
+      "digest": "sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205",
+      "reference": "grafana/grafana:13.3.0",
+      "last_updated": "2026-10-27T08:42:15.46031Z",
+      "tracking": "13.3",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:6e5d306338670f381a942f1c50d3c266bf71531e5ddd9ee4fc1a133dac5ce63d",
+          "compressed_bytes": 503100069,
+          "last_pushed": "2026-10-27T08:42:02.204695049Z"
+        },
+        "arm64": {
+          "digest": "sha256:868b6ae6642ec09a71a1273d4c0eb952856c1f421137b33e26038e629ee3c208",
+          "compressed_bytes": 463136249,
+          "last_pushed": "2026-10-27T08:42:08.195692736Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/grafana/grafana/tags/13.3.0"
+    },
+    "OLLAMA_IMAGE": {
+      "hub_repository": "ollama/ollama",
+      "repository": "ollama/ollama",
+      "tag": "0.40.13",
+      "digest": "sha256:b2f0122c476bc9fe7ce679d8bb4bd555351e25e2554eefb156f61cb0a89cf429",
+      "reference": "ollama/ollama:0.40.13",
+      "last_updated": "2026-10-29T02:32:54.748256Z",
+      "tracking": "latest",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:93c1376d651a9f1579ee40cc5763852f08b204466371e4bb64bca2a1d8d08e2d",
+          "compressed_bytes": 3394253640,
+          "last_pushed": "2026-10-29T02:29:23.857287974Z"
+        },
+        "arm64": {
+          "digest": "sha256:44236782466e814af687b3adc04b1b3e4b4288459fc9272e66e8671d11968f82",
+          "compressed_bytes": 2845272742,
+          "last_pushed": "2026-10-29T02:28:34.891813672Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/ollama/ollama/tags/0.40.13"
+    },
+    "CI_IMAGE": {
+      "hub_repository": "library/docker",
+      "repository": "docker",
+      "tag": "29.9.2-cli",
+      "digest": "sha256:5e6baf67325a79f64ed3bed6863954d5e05d0f3d4e57cbdb14809346814bbfdb",
+      "reference": "docker:29.9.2-cli",
+      "last_updated": "2026-10-22T01:07:59.046618Z",
+      "tracking": "cli",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:98776017a505b6d89c0adff8c63b0d8701ca10280c41315dbb0638fe3b5cf6e5",
+          "compressed_bytes": 67476731,
+          "last_pushed": "2026-10-22T01:07:29.531234818Z"
+        },
+        "arm64": {
+          "digest": "sha256:d54eb9ef0f4cbcd82bfb87c6f8d8951c04ce5a01daf38682f3f57ed6a03acd6d",
+          "compressed_bytes": 62981697,
+          "last_pushed": "2026-10-22T01:07:31.749647966Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/library/docker/tags/29.9.2-cli"
+    },
+    "DIND_IMAGE": {
+      "hub_repository": "library/docker",
+      "repository": "docker",
+      "tag": "29.9.2-dind",
+      "digest": "sha256:9e79b879b177fbd72c34376a3dd3d91747da5db49e1f560f76aea59561471977",
+      "reference": "docker:29.9.2-dind",
+      "last_updated": "2026-10-22T04:07:46.589579Z",
+      "tracking": "dind",
+      "platforms": {
+        "amd64": {
+          "digest": "sha256:97545b7bab66319a476800a85b008b25c06681733d484909e2a776281e41574f",
+          "compressed_bytes": 122006157,
+          "last_pushed": "2026-10-22T01:07:15.761945241Z"
+        },
+        "arm64": {
+          "digest": "sha256:cb160a57fcb936668f8ab8e4a9d73c66b7975226aa87e466233734edbcd83ccc",
+          "compressed_bytes": 112834996,
+          "last_pushed": "2026-10-22T04:07:16.308734526Z"
+        }
+      },
+      "source_url": "https://hub.docker.com/v2/repositories/library/docker/tags/29.9.2-dind"
+    }
+  },
+  "model": "qwen3:0.6b",
+  "security_note": "Fresh supported releases and digest pinning are not a CVE-free attestation. Review upstream security advisories and rerun the protocols before accepting updates.",
+  "reference_policy": "numbered tags in Compose; image RepoDigest verified against this lock"
+}

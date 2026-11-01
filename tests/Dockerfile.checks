@@ -1,0 +1,5 @@
+ARG DOCKER_IMAGE=docker:29.9.2-cli
+FROM ${DOCKER_IMAGE}
+LABEL edu.netlab.owner="autonomous-netlab"
+RUN apk add --no-cache python3
+ENTRYPOINT ["python3"]

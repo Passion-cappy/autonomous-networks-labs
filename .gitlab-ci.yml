@@ -1,17 +1,64 @@
-# You can override the included template(s) by including variable overrides
-# SAST customization: https://docs.gitlab.com/user/application_security/sast/#available-cicd-variables
-# Secret Detection customization: https://docs.gitlab.com/user/application_security/secret_detection/pipeline/configure/
-# Dependency Scanning customization: https://docs.gitlab.com/user/application_security/dependency_scanning/dependency_scanning_sbom/#customizing-analyzer-behavior
-# Container Scanning customization: https://docs.gitlab.com/user/application_security/container_scanning/#customizing-analyzer-behavior
-# Note that environment variables can be set in several places
-# See https://docs.gitlab.com/ci/variables/#cicd-variable-precedence
-stages:
-- test
-- secret-detection
+# Template metadata is checked on push. Runtime jobs start on pr03..pr07 tags.
+# A Docker-capable GitLab runner with TLS-enabled DinD is required for runtime.
+stages: [metadata, test, secret-detection, runtime]
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
 sast:
   stage: test
-include:
-- template: Security/SAST.gitlab-ci.yml
-- template: Security/Secret-Detection.gitlab-ci.yml
+
 secret_detection:
   stage: secret-detection
+template_metadata:
+  stage: metadata
+  image: python:3.15.2-alpine
+  script:
+    - python tests/template_contract.py
+image_freshness:
+  stage: metadata
+  image: python:3.15.2-alpine
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  script:
+    - python tests/image_audit.py
+network_runtime:
+  stage: runtime
+  image: docker:29.9.2-cli
+  services:
+    - name: docker:29.9.2-dind
+      alias: docker
+      variables:
+        HEALTHCHECK_TCP_PORT: '2376'
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: /certs
+    DOCKER_TLS_VERIFY: '1'
+    DOCKER_CERT_PATH: /certs/client
+    NETLAB_CI_WITHOUT_MODEL: '1'
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^pr0[3-7](-v[0-9]+)?$/'
+    - if: '$LAB_STAGE =~ /^pr0[3-7]$/'
+  before_script:
+    - docker info
+    - docker compose version
+    - cp .env.example .env
+  script:
+    - |
+      stage="${LAB_STAGE:-${CI_COMMIT_TAG%%-*}}"
+      case "$stage" in pr0[3-7]) ;; *) exit 2 ;; esac
+      sh tests/compose.sh "$stage" up -d --build
+      case "$stage" in pr05|pr06|pr07) sh tests/compose.sh "$stage" --profile monitoring up -d ;; esac
+      if [ "$stage" = pr07 ]; then sh tests/compose.sh "$stage" --profile ai up -d --no-deps grafana; fi
+      sh tests/check.sh "$stage"
+  after_script:
+    - |
+      stage="${LAB_STAGE:-${CI_COMMIT_TAG%%-*}}"
+      case "$stage" in pr0[3-7]) sh tests/compose.sh "$stage" --profile monitoring --profile ai down --volumes --remove-orphans ;; esac
+  artifacts:
+    when: always
+    reports:
+      junit: results/checks/*/junit.xml
+    paths: [results/]
+    expire_in: 7 days
