@@ -1,1 +1,17 @@
-# TODO: fill while following the corresponding practical protocol.
+name: ${COMPOSE_PROJECT_NAME:-autonomous-netlab}
+services:
+  toolbox:
+    build:
+      context: .
+      args: {BASE_IMAGE: '${BASE_IMAGE}'}
+    image: autonomous-netlab/toolbox:local
+    working_dir: /workspace
+    volumes: ['./:/workspace']
+    environment: {MODEL: '${MODEL:-qwen3:0.6b}'}
+    networks: [control]
+    mem_limit: 128m
+    cpus: 0.5
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+networks:
+  control: {internal: true}
