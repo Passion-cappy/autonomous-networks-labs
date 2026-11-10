@@ -1,1 +1,7 @@
-# TODO: fill while following the corresponding practical protocol.
+modules:
+  http_ok:
+    prober: http
+    timeout: 3s
+    http:
+      valid_status_codes: [200]
+      preferred_ip_protocol: ip4

@@ -1,1 +1,19 @@
-# TODO: fill while following the corresponding practical protocol.
+services:
+  prometheus:
+    image: ${PROMETHEUS_IMAGE}
+    profiles: [monitoring]
+    command: [--config.file=/etc/prometheus/prometheus.yml, --storage.tsdb.retention.time=2h, --storage.tsdb.retention.size=64MB]
+    volumes: [./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro, ./config/alerts.yml:/etc/prometheus/alerts.yml:ro]
+    ports: ['127.0.0.1:${PROMETHEUS_PORT:-9090}:9090']
+    # ingress permits localhost publishing; control remains internal.
+    networks: [control, ingress]
+    mem_limit: 256m
+    cpus: 0.5
+  blackbox:
+    image: ${BLACKBOX_IMAGE}
+    profiles: [monitoring]
+    command: [--config.file=/etc/blackbox/config.yml]
+    volumes: [./config/blackbox.yml:/etc/blackbox/config.yml:ro]
+    networks: [control, service]
+    mem_limit: 64m
+    cpus: 0.25
