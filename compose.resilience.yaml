@@ -1,1 +1,28 @@
-# TODO: fill while following the corresponding practical protocol.
+x-runtime: &runtime
+  build:
+    context: .
+    args: {BASE_IMAGE: '${BASE_IMAGE}'}
+  image: autonomous-netlab/toolbox:local
+  working_dir: /workspace
+  volumes: ['./:/workspace']
+  mem_limit: 96m
+  cpus: 0.5
+  cap_drop: [ALL]
+services:
+  backend-b:
+    <<: *runtime
+    command: [python, -m, http.server, '8000', --bind, 0.0.0.0, --directory, site/backend-b]
+    networks: [service]
+  events:
+    <<: *runtime
+    profiles: [monitoring]
+    command: [python, tests/event_sink.py]
+    networks: [control]
+  alertmanager:
+    image: ${ALERTMANAGER_IMAGE}
+    profiles: [monitoring]
+    command: [--config.file=/etc/alertmanager/alertmanager.yml]
+    volumes: [./config/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro]
+    networks: [control]
+    mem_limit: 64m
+    cpus: 0.25

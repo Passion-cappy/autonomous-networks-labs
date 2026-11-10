@@ -1,1 +1,11 @@
-# TODO: fill while following the corresponding practical protocol.
+route:
+  receiver: lab-events
+  group_by: [alertname, instance]
+  group_wait: 2s
+  group_interval: 5s
+  repeat_interval: 1h
+receivers:
+  - name: lab-events
+    webhook_configs:
+      - url: http://events:8001/alerts
+        send_resolved: true
