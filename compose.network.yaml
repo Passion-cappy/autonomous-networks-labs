@@ -1,1 +1,41 @@
-# TODO: fill while following the corresponding practical protocol.
+x-host: &host
+  build:
+    context: .
+    args: {BASE_IMAGE: '${BASE_IMAGE}'}
+  image: autonomous-netlab/toolbox:local
+  working_dir: /workspace
+  volumes: ['./:/workspace']
+  mem_limit: 96m
+  cpus: 0.5
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+services:
+  employee:
+    <<: *host
+    networks: [work]
+  guest:
+    <<: *host
+    networks: [guest]
+  admin:
+    <<: *host
+    command: [python, -m, http.server, '8000', --bind, 0.0.0.0, --directory, site/admin]
+    networks: [work]
+  backend-a:
+    <<: *host
+    command: [python, -m, http.server, '8000', --bind, 0.0.0.0, --directory, site/backend-a]
+    networks: [service]
+  gateway:
+    image: ${HAPROXY_IMAGE}
+    volumes: [./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro]
+    ports: ['127.0.0.1:${PUBLIC_PORT:-8088}:8080']
+    networks: [work, guest, service, control, ingress]
+    mem_limit: 64m
+    cpus: 0.5
+    cap_drop: [ALL]
+networks:
+  work: {internal: true}
+  guest: {internal: true}
+  service: {internal: true}
+  # Docker publishes host ports only when a non-internal network is attached.
+  # Only gateway joins ingress; the published HTTP port remains loopback-only.
+  ingress: {}
