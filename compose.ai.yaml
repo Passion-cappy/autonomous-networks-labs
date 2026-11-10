@@ -1,1 +1,41 @@
-# TODO: fill while following the corresponding practical protocol.
+services:
+  grafana:
+    image: ${GRAFANA_IMAGE}
+    profiles: [ai]
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: 'true'
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_AUTH_DISABLE_LOGIN_FORM: 'true'
+      GF_ANALYTICS_REPORTING_ENABLED: 'false'
+      GF_ANALYTICS_CHECK_FOR_UPDATES: 'false'
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: 'false'
+      GF_PLUGINS_PREINSTALL_DISABLED: 'true'
+      GF_PLUGINS_PREINSTALL_AUTO_UPDATE: 'false'
+      GF_PLUGINS_PUBLIC_KEY_RETRIEVAL_DISABLED: 'true'
+      GF_PLUGINS_PLUGIN_ADMIN_ENABLED: 'false'
+    volumes:
+      - ./config/grafana-datasource.yml:/etc/grafana/provisioning/datasources/netlab.yml:ro
+      - ./config/grafana-provider.yml:/etc/grafana/provisioning/dashboards/netlab.yml:ro
+      - ./config/grafana-dashboard.json:/var/lib/grafana/dashboards/netlab.json:ro
+    ports: ['127.0.0.1:${GRAFANA_PORT:-3000}:3000']
+    networks: [control, ingress]
+    mem_limit: 384m
+    cpus: 0.5
+  ollama:
+    image: ${OLLAMA_IMAGE}
+    profiles: [ai]
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+      OLLAMA_NO_CLOUD: '1'
+      OLLAMA_VULKAN: '0'
+      OLLAMA_CONTEXT_LENGTH: '2048'
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+    volumes: [ollama-data:/root/.ollama]
+    networks: [control, download]
+    mem_limit: 2g
+    cpus: 2
+volumes:
+  ollama-data: {}
+networks:
+  download: {}

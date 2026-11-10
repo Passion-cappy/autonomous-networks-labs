@@ -1,1 +1,5 @@
-# TODO: fill while following the corresponding practical protocol.
+apiVersion: 1
+providers:
+  - name: netlab
+    type: file
+    options: {path: /var/lib/grafana/dashboards}

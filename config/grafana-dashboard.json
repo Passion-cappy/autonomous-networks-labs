@@ -1,1 +1,29 @@
-# TODO: fill while following the corresponding practical protocol.
+{
+  "uid": "netlab",
+  "title": "My network",
+  "schemaVersion": 39,
+  "time": {"from": "now-5m", "to": "now"},
+  "refresh": "5s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "HTTP probe success",
+      "description": "Source: Blackbox in control/service. Target: instance label. Unit: success 0/1. Time: last 5 minutes.",
+      "datasource": {"uid": "netlab-prometheus", "type": "prometheus"},
+      "targets": [{"expr": "probe_success", "refId": "A", "legendFormat": "{{instance}}"}],
+      "fieldConfig": {"defaults": {"min": 0, "max": 1}, "overrides": []},
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "HTTP probe duration (s)",
+      "description": "Source: Blackbox in control/service. Target: instance label. Unit: seconds per HTTP probe, not ICMP RTT. Time: last 5 minutes.",
+      "datasource": {"uid": "netlab-prometheus", "type": "prometheus"},
+      "targets": [{"expr": "probe_duration_seconds", "refId": "A", "legendFormat": "{{instance}}"}],
+      "fieldConfig": {"defaults": {"unit": "s", "min": 0}, "overrides": []},
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8}
+    }
+  ]
+}
